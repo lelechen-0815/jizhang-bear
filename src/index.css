@@ -626,8 +626,8 @@ select {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  flex: 1;
   overflow-y: auto;
+  max-height: 160px;
 }
 
 .add-detail-row {
