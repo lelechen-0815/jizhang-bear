@@ -66,7 +66,7 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter basename="/bear-book/">
+   <Router basename="/jizhang-bear/">
       <AppShell />
     </BrowserRouter>
   );
