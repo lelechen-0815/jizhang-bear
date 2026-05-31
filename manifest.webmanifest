@@ -1,0 +1,1 @@
+{"name":"自嘲熊记账","short_name":"🐻记账","description":"自嘲熊主题的可爱记账应用","start_url":"/bear-book/","display":"standalone","background_color":"#fff8f0","theme_color":"#fff8f0","lang":"en","scope":"/bear-book/","orientation":"portrait","icons":[{"src":"favicon.svg","sizes":"48x48 72x72 96x96 128x128 144x144 192x192 256x256 512x512","type":"image/svg+xml","purpose":"any"}]}
