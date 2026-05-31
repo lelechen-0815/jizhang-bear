@@ -10,7 +10,6 @@ import Settings from './pages/Settings';
 function TabBar() {
   const navigate = useNavigate();
   const location = useLocation();
-
   const tabs = [
     { path: '/', label: '首页', icon: '🏠' },
     { path: '/bills', label: '账单', icon: '📋' },
@@ -18,12 +17,10 @@ function TabBar() {
     { path: '/stats', label: '统计', icon: '📊' },
     { path: '/settings', label: '设置', icon: '⚙️' },
   ];
-
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
-
   return (
     <nav className="tab-bar">
       {tabs.map((tab) => (
@@ -43,7 +40,6 @@ function TabBar() {
 function AppShell() {
   const location = useLocation();
   const isAddPage = location.pathname === '/add';
-
   return (
     <div className={`app-shell ${isAddPage ? 'no-tab' : ''}`}>
       <main className="app-content">
@@ -64,9 +60,8 @@ export default function App() {
   useEffect(() => {
     initializeData();
   }, []);
-
   return (
-   <Router basename="/jizhang-bear/">
+    <BrowserRouter basename="/jizhang-bear/">
       <AppShell />
     </BrowserRouter>
   );
