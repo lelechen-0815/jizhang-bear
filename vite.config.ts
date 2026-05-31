@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  base: '/bear-book/',
+  base: '/jizhang-bear/',
   plugins: [
     react(),
     VitePWA({
@@ -17,7 +17,7 @@ export default defineConfig({
         background_color: '#fff8f0',
         display: 'standalone',
         orientation: 'portrait',
-        start_url: '/bear-book/',
+        start_url: '/jizhang-bear/',
         icons: [
           {
             src: 'favicon.svg',
