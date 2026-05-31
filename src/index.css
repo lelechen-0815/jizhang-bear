@@ -545,13 +545,13 @@ select {
 
 .add-type-toggle {
   display: flex;
-  padding: 12px 16px;
+  padding: 8px 16px;
   gap: 8px;
 }
 
 .add-type-toggle button {
   flex: 1;
-  padding: 10px;
+  padding: 9px;
   border-radius: var(--radius-sm);
   font-size: 15px;
   font-weight: 600;
@@ -572,8 +572,8 @@ select {
 
 .add-amount-display {
   text-align: center;
-  padding: 20px 16px 16px;
-  font-size: 36px;
+  padding: 12px 16px 10px;
+  font-size: 32px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   letter-spacing: -1px;
@@ -590,7 +590,7 @@ select {
 .add-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
   padding: 0 16px;
 }
 
@@ -598,10 +598,10 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  padding: 8px 6px;
+  gap: 2px;
+  padding: 6px 5px;
   border-radius: var(--radius-sm);
-  min-width: 54px;
+  min-width: 50px;
   background: var(--c-bg);
   transition: all 0.12s;
   border: 2px solid transparent;
@@ -613,7 +613,7 @@ select {
 }
 
 .cat-emoji {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .cat-name {
@@ -622,71 +622,68 @@ select {
 }
 
 .add-details {
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;
-  max-height: 160px;
+  margin: 8px 16px 0;
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
 }
 
 .add-detail-row {
   display: flex;
   align-items: center;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--c-border);
   gap: 10px;
 }
 
+.add-detail-row:last-child {
+  border-bottom: none;
+}
+
 .add-detail-row label {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--c-text-dim);
-  width: 48px;
+  width: 36px;
   flex-shrink: 0;
 }
 
 .add-detail-row select,
 .add-detail-row input {
   flex: 1;
-  font-size: 14px;
-}
-
-.who-toggle {
-  display: flex;
-  gap: 6px;
-}
-
-.who-toggle button {
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
   font-size: 13px;
-  background: var(--c-bg);
-  border: 2px solid transparent;
+  border: none;
+  background: none;
+  padding: 0;
+  border-radius: 0;
 }
 
-.who-toggle button.active {
-  border-color: var(--c-accent);
-  background: var(--c-accent-light);
+.add-detail-row select:focus,
+.add-detail-row input:focus {
+  outline: none;
 }
 
 /* === Calculator === */
 .calculator {
   background: #faf6f0;
-  padding: 10px 12px;
-  padding-bottom: max(10px, var(--safe-bottom));
+  padding: 7px 12px;
+  padding-bottom: max(7px, var(--safe-bottom));
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
+  margin-top: 8px;
 }
 
 .calc-row {
   display: flex;
-  gap: 6px;
+  gap: 5px;
 }
 
 .calc-key {
   flex: 1;
-  padding: 16px 0;
-  border-radius: 10px;
-  font-size: 20px;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 17px;
   font-weight: 500;
   background: var(--c-surface);
   text-align: center;
@@ -699,16 +696,16 @@ select {
 }
 
 .calc-key.delete {
-  font-size: 16px;
+  font-size: 14px;
   color: var(--c-text-dim);
 }
 
 .calc-key.submit {
   background: var(--c-accent);
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  padding: 14px 0;
+  padding: 11px 0;
 }
 
 .calc-key.submit:active {
