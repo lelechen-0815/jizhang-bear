@@ -20,7 +20,7 @@ export default defineConfig({
         start_url: '/jizhang-bear/',
         icons: [
           {
-            src: 'favicon.svg',
+            src: 'favicon.png',
             sizes: '48x48 72x72 96x96 128x128 144x144 192x192 256x256 512x512',
             type: 'image/svg+xml',
             purpose: 'any',
