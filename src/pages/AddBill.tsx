@@ -21,7 +21,6 @@ export default function AddBill() {
   const [account, setAccount] = useState('');
   const [date, setDate] = useState(getToday());
   const [note, setNote] = useState('');
-  const [recordedBy, setRecordedBy] = useState<'me' | 'boyfriend'>('me');
   const [showQuote, setShowQuote] = useState(false);
   const [quoteContext, setQuoteContext] = useState<{
     condition: 'onAddExpense' | 'onAddIncome';
@@ -65,11 +64,8 @@ export default function AddBill() {
         setAmountStr((prev) => prev + '.');
       }
     } else {
-      // 限制小数点后两位
       if (amountStr.includes('.') && amountStr.split('.')[1].length >= 2) return;
-      // 限制总长度
       if (amountStr.replace('.', '').length >= 9) return;
-      // 限制前导零
       if (amountStr === '0' && key !== '.') {
         setAmountStr(key);
       } else {
@@ -88,7 +84,7 @@ export default function AddBill() {
       account: account || 'cash',
       date,
       note: note.trim(),
-      recordedBy,
+      recordedBy: 'me',
     };
 
     await addBill(bill);
@@ -99,7 +95,6 @@ export default function AddBill() {
     });
     setShowQuote(true);
 
-    // 重置表单
     setAmountStr('');
     setNote('');
     setTimeout(() => {
@@ -113,6 +108,11 @@ export default function AddBill() {
       {showQuote && quoteContext && (
         <BearBubble condition={quoteContext.condition} context={quoteContext.context} />
       )}
+
+      {/* 顶部返回按钮 */}
+      <div className="add-header">
+        <button className="back-btn" onClick={() => navigate(-1)}>✕</button>
+      </div>
 
       {/* 类型切换 */}
       <div className="add-type-toggle">
@@ -149,7 +149,7 @@ export default function AddBill() {
         ))}
       </div>
 
-      {/* 账户 / 日期 / 谁记的 */}
+      {/* 账户 / 日期 */}
       <div className="add-details">
         <div className="add-detail-row">
           <label>账户</label>
@@ -162,23 +162,6 @@ export default function AddBill() {
         <div className="add-detail-row">
           <label>日期</label>
           <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-        </div>
-        <div className="add-detail-row">
-          <label>谁记的</label>
-          <div className="who-toggle">
-            <button
-              className={recordedBy === 'me' ? 'active' : ''}
-              onClick={() => setRecordedBy('me')}
-            >
-              👩 我
-            </button>
-            <button
-              className={recordedBy === 'boyfriend' ? 'active' : ''}
-              onClick={() => setRecordedBy('boyfriend')}
-            >
-              👦 男朋友
-            </button>
-          </div>
         </div>
         <div className="add-detail-row">
           <label>备注</label>
