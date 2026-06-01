@@ -19,6 +19,7 @@ export default function AddBill() {
   const [amountStr, setAmountStr] = useState('');
   const [category, setCategory] = useState('');
   const [account, setAccount] = useState('');
+  const [currency, setCurrency] = useState('CNY');
   const [date, setDate] = useState(getToday());
   const [note, setNote] = useState('');
   const [showQuote, setShowQuote] = useState(false);
@@ -34,6 +35,7 @@ export default function AddBill() {
     db.categories.where('type').equals('income').toArray()
   );
   const accounts = useLiveQuery(() => db.accounts.toArray());
+  const currencies = useLiveQuery(() => db.currencies.toArray());
 
   const cats = type === 'expense' ? expenseCats : incomeCats;
 
@@ -48,6 +50,9 @@ export default function AddBill() {
       setAccount(accounts[0].key);
     }
   }, [accounts, account]);
+
+  const selectedCurrency = currencies?.find((c) => c.key === currency);
+  const currencySymbol = selectedCurrency?.symbol ?? '¥';
 
   const amountCents = amountStr
     ? Math.round(parseFloat(amountStr) * 100)
@@ -82,6 +87,7 @@ export default function AddBill() {
       amount: amountCents,
       category: category || (type === 'expense' ? 'other_expense' : 'other_income'),
       account: account || 'cash',
+      currency,
       date,
       note: note.trim(),
       recordedBy: 'me',
@@ -109,7 +115,7 @@ export default function AddBill() {
         <BearBubble condition={quoteContext.condition} context={quoteContext.context} />
       )}
 
-      {/* 顶部返回按钮 */}
+      {/* 返回按钮 */}
       <div className="add-header">
         <button className="back-btn" onClick={() => navigate(-1)}>✕</button>
       </div>
@@ -132,7 +138,9 @@ export default function AddBill() {
 
       {/* 金额显示 */}
       <div className={`add-amount-display ${type}`}>
-        {amountStr ? formatMoney(amountCents, type) : (type === 'expense' ? '-¥0.00' : '+¥0.00')}
+        {amountStr
+          ? formatMoney(amountCents, type, currencySymbol)
+          : (type === 'expense' ? `-${currencySymbol}0.00` : `+${currencySymbol}0.00`)}
       </div>
 
       {/* 分类选择 */}
@@ -149,13 +157,21 @@ export default function AddBill() {
         ))}
       </div>
 
-      {/* 账户 / 日期 */}
+      {/* 账户 / 币种 / 日期 / 备注 */}
       <div className="add-details">
         <div className="add-detail-row">
           <label>账户</label>
           <select value={account} onChange={(e) => setAccount(e.target.value)}>
             {accounts?.map((a) => (
               <option key={a.key} value={a.key}>{a.icon} {a.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="add-detail-row">
+          <label>币种</label>
+          <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+            {currencies?.map((c) => (
+              <option key={c.key} value={c.key}>{c.flag} {c.key} {c.name}</option>
             ))}
           </select>
         </div>
