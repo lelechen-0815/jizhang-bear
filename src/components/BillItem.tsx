@@ -21,9 +21,6 @@ export default function BillItem({ bill, onClick, onDelete }: Props) {
         {bill.note && <div className="bill-item-note">{bill.note}</div>}
         <div className="bill-item-meta">
           {account && <span>{account.icon} {account.name}</span>}
-          <span className={`bill-item-who ${bill.recordedBy}`}>
-            {bill.recordedBy === 'me' ? '👩' : '👦'}
-          </span>
         </div>
       </div>
       <div className={`bill-item-amount ${bill.type}`}>
