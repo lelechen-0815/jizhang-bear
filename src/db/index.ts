@@ -3,10 +3,11 @@ import Dexie, { type Table } from 'dexie';
 export interface Bill {
   id?: number;
   type: 'expense' | 'income';
-  amount: number; // 单位：分
+  amount: number;
   category: string;
   account: string;
-  date: string; // YYYY-MM-DD
+  currency: string;
+  date: string;
   note: string;
   recordedBy: 'me' | 'boyfriend';
   createdAt: number;
@@ -24,20 +25,29 @@ export interface Account {
   key: string;
   name: string;
   icon: string;
-  initialBalance: number; // 单位：分
+  initialBalance: number;
+}
+
+export interface Currency {
+  key: string;
+  name: string;
+  symbol: string;
+  flag: string;
+  isDefault: boolean;
 }
 
 export interface Budget {
   id?: number;
-  month: string; // YYYY-MM
-  totalBudget: number; // 总预算，单位：分
-  categoryBudgets: Record<string, number>; // 分类预算，key=category key, value=分
+  month: string;
+  totalBudget: number;
+  categoryBudgets: Record<string, number>;
 }
 
 export class BearBookDB extends Dexie {
   bills!: Table<Bill, number>;
   categories!: Table<Category, string>;
   accounts!: Table<Account, string>;
+  currencies!: Table<Currency, string>;
   budgets!: Table<Budget, number>;
 
   constructor() {
@@ -46,6 +56,13 @@ export class BearBookDB extends Dexie {
       bills: '++id, type, category, account, date, recordedBy',
       categories: '&key, type',
       accounts: '&key',
+      budgets: '++id, month',
+    });
+    this.version(2).stores({
+      bills: '++id, type, category, account, currency, date, recordedBy',
+      categories: '&key, type',
+      accounts: '&key',
+      currencies: '&key',
       budgets: '++id, month',
     });
   }
