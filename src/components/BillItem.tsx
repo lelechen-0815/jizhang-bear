@@ -12,6 +12,9 @@ interface Props {
 export default function BillItem({ bill, onClick, onDelete }: Props) {
   const category = useLiveQuery(() => db.categories.get(bill.category), [bill.category]);
   const account = useLiveQuery(() => db.accounts.get(bill.account), [bill.account]);
+  const currency = useLiveQuery(() => db.currencies.get(bill.currency ?? 'CNY'), [bill.currency]);
+
+  const currencySymbol = currency?.symbol ?? '¥';
 
   return (
     <div className="bill-item" onClick={onClick}>
@@ -21,10 +24,13 @@ export default function BillItem({ bill, onClick, onDelete }: Props) {
         {bill.note && <div className="bill-item-note">{bill.note}</div>}
         <div className="bill-item-meta">
           {account && <span>{account.icon} {account.name}</span>}
+          {bill.currency && bill.currency !== 'CNY' && (
+            <span style={{ fontSize: 11, color: '#e8875b' }}>{currency?.flag} {bill.currency}</span>
+          )}
         </div>
       </div>
       <div className={`bill-item-amount ${bill.type}`}>
-        {formatMoney(bill.amount, bill.type)}
+        {formatMoney(bill.amount, bill.type, currencySymbol)}
       </div>
       {onDelete && (
         <button
